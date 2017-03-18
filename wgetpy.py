@@ -1,12 +1,17 @@
+"""
+ uses wget package to read from noaa ftp
+"""
 import os
 from os.path import isfile, join
 import re
 import wget
+import read_config_functions as rcf
 import tarfile
 from subprocess import check_output
 
 
 def download(str_year, str_month, str_day, overwrite=False):
+    dictSettings = rcf.configsectionmap('noaa_precip.config', 'noaa_precip')
     hours = ('00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
              '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23')
 
@@ -34,13 +39,13 @@ def download(str_year, str_month, str_day, overwrite=False):
 
     os.chdir(working)
 
-    base_link = "http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/yyyy/yyyyMM/yyyyMMdd/"
+    base_link = dictSettings['base_link']
     base_link = re.sub('yyyy', str_year, base_link)
     base_link = re.sub('MM', str_month, base_link)
     base_link = re.sub('dd', str_day, base_link)
     print(base_link)
 
-    gz_file = "nws_precip_yyyyMMddhh.tar.gz"
+    gz_file = dictSettings['gz_file']
     gz_file = re.sub('yyyyMMdd', str_year + str_month + str_day, gz_file)
 
     for hour in hours:

@@ -1,5 +1,6 @@
 """
-
+ class to read from sqlite database
+ last update: 3/17/2017
 """
 
 import sqlite3
@@ -10,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 class SQLiteWJT:
-    def __init__(self, db="precip.db"):
+    def __init__(self, db):
         self.db = os.getcwd() + os.sep + db
         self.conn = sqlite3.connect(self.db)
         # text_factory = str results in bytestrings being returned rather than unicode for TEXT fields

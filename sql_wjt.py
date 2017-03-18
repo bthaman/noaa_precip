@@ -1,12 +1,13 @@
 """
- querying sql server
+ class to read from sql server
+ last update: 3/17/2017
 """
 
 import pypyodbc
 
 
 class SqlWjt:
-    def __init__(self, cnn_string='Driver={SQL Server};Server=FN27963\SQLEXPRESS;Database=HCFCD'):
+    def __init__(self, cnn_string):
         self.cnn_string = cnn_string
         self.connection = pypyodbc.connect(self.cnn_string)
         self.cursor = self.connection.cursor()
@@ -37,7 +38,7 @@ class SqlWjt:
 
 
 class Sproc:
-    def __init__(self, cnn_string='Driver={SQL Server};Server=FN27963\SQLEXPRESS;Database=HCFCD'):
+    def __init__(self, cnn_string):
         self.cnn_string = cnn_string
         self.connection = pypyodbc.connect(self.cnn_string, autocommit=False)
         self.cursor = self.connection.cursor()
