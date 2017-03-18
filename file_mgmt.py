@@ -8,7 +8,7 @@ def list_files(loc):
     return [f for f in listdir(loc) if isfile(join(loc, f))]
 
 
-def csv_precip_list(loc=os.getcwd()):
+def csv_precip_list(loc=os.path.join(os.getcwd(), 'output')):
     lst_dates = []
     lst_duration = ['1', '3', '6', '12', '24']
     file_list = list_files(loc)

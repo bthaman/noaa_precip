@@ -218,15 +218,6 @@ class PrecipProcessor:
             if show_maps:
                 os.startfile(pdf_file)
 
-        # create a Pandas Excel writer using XlsxWriter as the engine.
-        """        print('writing df to excel...')
-                xlsfile = 'df_out.xlsx'
-                writer = pd.ExcelWriter(xlsfile, engine='xlsxwriter')
-                df.to_excel(writer, sheet_name='ddf_out')
-                # close the Pandas Excel writer and output the Excel file.
-                writer.save()
-        """
-
     def get_hrs(self):
         return self.hours
 
@@ -245,9 +236,6 @@ class PrecipProcessor:
 
         for hour in self.hours:
             inFeatures = os.getcwd() + os.sep + hour + '.shp'
-            # outFC = "Database Servers\\FN27399_SQLEXPRESS.gds\\HCFCD (VERSION:dbo.DEFAULT)\\HCFCD.DBO." + \
-            #         "FC_" + self.str_year + self.str_month + self.str_day + hour
-
             outFC = "FC_" + self.str_year + self.str_month + self.str_day + hour
             if not arcpy.Exists(outFC):
                 run_status = gpt.clip_to_boundary(in_features=inFeatures, clip_boundary=clip_boundary,
