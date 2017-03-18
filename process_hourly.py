@@ -93,7 +93,6 @@ class PrecipProcessor:
               " from ddf"
         df_ddf = sqlitewjt.get_dataframe(sql)
         df_ddf = df_ddf.set_index('hrap_id')
-        # df_ddf.to_csv('df_ddf.csv')
         sqlitewjt.close_connection()
 
         # create new duration columns
@@ -115,18 +114,16 @@ class PrecipProcessor:
         # and a column to hold the interpolated probs
         df['max_win_pt'] = df[new_cols].max(axis=1)
         df['return_period'] = 0
-        # df.to_csv('df_interim.csv')
 
         # aggregate on county to get the mean rainfall
         print('export stats to csv...')
         # create a pivot table dataframe: get statistics by county and moving window columns
         # 'aggfunc' can take a list of statistical functions
         df_stats = pd.pivot_table(df, index=['county'], values=new_cols, aggfunc=[np.mean])
-        df_stats.to_csv('df_stats_interim.csv')
+        df_stats.to_csv('output\\df_stats_interim.csv')
         # add a new column containing the name of the column with the max value for each county
         # problematic--->df_stats['Max'] = df_stats.ix[:, 3:num_new_columns + 3].idxmax(axis=1)
         df_stats['Max'] = df_stats.ix[:, 0:num_new_columns].idxmax(axis=1)
-        # df_stats.to_csv('df_stats.csv')
         # get a series of tuples containing the statistic name and the name of the column containing the max value,
         # e.g. ('mean', 'win_2')
         series_maxcols = df_stats[:]['Max']
@@ -137,7 +134,6 @@ class PrecipProcessor:
         by_pt_or_area = 'by_point'
 
         interp = interpolator.Interpolator()
-        # sproc = sql_wjt.Sproc()
         sqlwjt = sql_wjt.SqlWjt(self.sql_cnn_string)
         # 'max_win_pt' contains the highest window value for the individual point
         max_win_pt_index = df.columns.get_loc('max_win_pt')
@@ -201,7 +197,7 @@ class PrecipProcessor:
 
         # create new df w/ subset of columns and write df to csv
         dfsubset = df[['hrapx', 'hrapy', 'county', 'max_win_pt', 'return_period']]
-        dfsubset.to_csv(str_year + str_month + str_day + '_' + str(duration_hrs) + '.csv')
+        dfsubset.to_csv('output\\' + str_year + str_month + str_day + '_' + str(duration_hrs) + '.csv')
 
         if create_raster:
             # create raster

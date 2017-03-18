@@ -22,7 +22,7 @@ class DDFplotting:
             self.str_month = '0' + self.str_month
         if len(self.str_day) == 1:
             self.str_day = '0' + self.str_day
-        self.root = os.getcwd()
+        self.root = os.path.join(os.getcwd(), 'output')
         self.hrapx = None
         self.hrapy = None
         self.csv_files = None
@@ -84,7 +84,8 @@ class DDFplotting:
             self.plt.plot(self.lst_hrs, lst_depths, 'r--D', linewidth=3.0, markersize=9)
             self.plt.legend(self.lst_legend_reversed + [self.precip_date], loc='upper left', fontsize='small')
             self.plt.title(county + ' (' + str(int(hrapx)) + ', ' + str(int(hrapy)) + ')', fontsize='large')
-            plb.savefig(county + '_' + self.str_year + self.str_month + self.str_day + '.png', bbox_inches='tight')
+            plb.savefig('output\\' + county + '_' + self.str_year + self.str_month +
+                        self.str_day + '.png', bbox_inches='tight')
             self.plt.show()
 
     def csv_file_list(self):

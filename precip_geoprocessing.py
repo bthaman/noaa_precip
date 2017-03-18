@@ -177,7 +177,7 @@ class PdfCreator:
             mxd = map.MapDocument(mapDoc)
 
             map_document = mxd
-            self.out_pdf = os.path.dirname(mapDoc) + os.sep + pdf_name + '.pdf'
+            self.out_pdf = os.path.join('output', pdf_name, '.pdf')
 
             legend = arcpy.mapping.ListLayoutElements(mxd, "LEGEND_ELEMENT")[0]
             legend.title = legend_title
