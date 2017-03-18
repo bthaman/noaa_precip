@@ -1,5 +1,6 @@
 """
  bill thaman: 11/11/2016
+ last update: 3/17/2017
  processes hourly rainfall data once the data has been downloaded and unzipped to shapefiles
    - PrecipProcessor class has functions to:
        - clip shapefiles to texas and output to SDE
@@ -20,6 +21,7 @@ import pypyodbc
 import sqlite_wjt
 import sql_wjt
 import interpolator
+import read_config_functions as rcf
 import wgetpy
 import dateutil.parser as parser
 import sys
@@ -35,12 +37,12 @@ class PrecipProcessor:
         self.month = parser.parse(precip_date).month
         self.day = parser.parse(precip_date).day
         self.root = os.getcwd()
+        self.dictSettings = rcf.configsectionmap('noaa_precip.config', 'noaa_precip')
         self.qpe_dir = 'qpehourly'
-        self.sql_cnn_string = None
-        self.sql_connection = None
-        self.update_table = "HCFCD.DBO.thiessen"
-        self.hrap_val_table = "HCFCD.DBO.hrap_val"
-        self.depth_table_prefix = "HCFCD.DBO.FC_"
+        self.sql_cnn_string = self.dictSettings['cnn_string']
+        self.update_table = self.dictSettings['update_table']
+        self.hrap_val_table = self.dictSettings['hrap_val_table']
+        self.depth_table_prefix = self.dictSettings['depth_table_prefix']
         self.dataframe = None
         self.dataframe_ddf = None
         self.out_raster = None
@@ -86,7 +88,7 @@ class PrecipProcessor:
             print("Value Error")
 
         print('make ddf dataframe...')
-        sqlitewjt = sqlite_wjt.SQLiteWJT('precipddf.db')
+        sqlitewjt = sqlite_wjt.SQLiteWJT(self.dictSettings['precip_db'])
         sql = "select cast(hrapx as string) || '_' || cast(hrapy as string) as hrap_id, prob, " + ddf_field + \
               " from ddf"
         df_ddf = sqlitewjt.get_dataframe(sql)
@@ -136,7 +138,7 @@ class PrecipProcessor:
 
         interp = interpolator.Interpolator()
         # sproc = sql_wjt.Sproc()
-        sqlwjt = sql_wjt.SqlWjt()
+        sqlwjt = sql_wjt.SqlWjt(self.sql_cnn_string)
         # 'max_win_pt' contains the highest window value for the individual point
         max_win_pt_index = df.columns.get_loc('max_win_pt')
         i = 0
@@ -236,17 +238,14 @@ class PrecipProcessor:
         return self.dataframe
 
     def clip_shapefiles(self):
-        arcpy.env.workspace = 'Database Connections\\FN27963.HCFCD.sde\\HCFCD.DBO.hrap'
-        # arcpy.env.workspace = 'Database Connections\\sde_wjt@sde_wjt@fwsde.sde\\sde_wjt.SDE_WJT.hrap'
+        arcpy.env.workspace = self.dictSettings['arcpy_workspace']
         working = self.root + os.sep + self.qpe_dir
         working_shp = working + os.sep + self.str_year + os.sep + self.str_year + self.str_month + os.sep + \
             self.str_year + self.str_month + self.str_day
         os.chdir(working_shp)
 
         gpt = GPtools()
-        # clip_boundary = r"Database Servers\FN27399_SQLEXPRESS.gds\HCFCD (VERSION:dbo.DEFAULT)\HCFCD.DBO.Texas_buffer"
-        # clip_boundary = os.getcwd() + os.sep + 'Data\Texas_buffer.shp'
-        clip_boundary = r'c:\Data\Texas_buffer.shp'
+        clip_boundary = self.dictSettings['clip_boundary']
 
         for hour in self.hours:
             inFeatures = os.getcwd() + os.sep + hour + '.shp'
@@ -265,8 +264,7 @@ class PrecipProcessor:
         os.chdir(self.root)
 
     def fc_to_fc(self):
-        arcpy.env.workspace = 'Database Connections\\FN27963.HCFCD.sde\\HCFCD.DBO.hrap'
-        # arcpy.env.workspace = 'Database Connections\\sde_wjt@sde_wjt@fwsde.sde\\sde_wjt.SDE_WJT.hrap'
+        arcpy.env.workspace = self.dictSettings['arcpy_workspace']
         working = self.root + os.sep + self.qpe_dir
         working_shp = working + os.sep + self.str_year + os.sep + self.str_year + self.str_month + os.sep + \
             self.str_year + self.str_month + self.str_day
@@ -287,8 +285,7 @@ class PrecipProcessor:
                 return None
         os.chdir(self.root)
 
-    def update_all_pts(self, cnn_string='Driver={SQL Server};Server=FN27963\SQLEXPRESS;Database=HCFCD'):
-        self.sql_cnn_string = cnn_string
+    def update_all_pts(self):
         conn = pypyodbc.connect(self.sql_cnn_string)
         cursor = conn.cursor()
         hrs = self.hours
@@ -330,10 +327,9 @@ class PrecipProcessor:
         self.dataframe = df2
         conn.close()
 
-    @staticmethod
-    def create_raster(out_raster):
+    def create_raster(self, out_raster):
         pg = GPtools()
-        in_features = 'Database Connections\\FN27963.HCFCD.sde\\HCFCD.DBO.hrap\\all_pts'
+        in_features = self.dictSettings['in_features']
         # in_features = 'Database Connections\\sde_wjt@sde_wjt@fwsde.sde\\sde_wjt.SDE_WJT.hrap\\all_pts'
         val_field = 'globvalue'
         pg.point_to_raster(in_features, out_raster, val_field)
