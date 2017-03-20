@@ -17,8 +17,32 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
-3. Uses a sqlite database. Don't need sqlite installed to execute the app, but will to manage the db.
+3. noaa_precip.config is used for sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, download info.
+
+4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db.
 
 <b>Modules</b>
 
-
+   precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. 
+                    Outputs include csv file for each duration, and optionally a pdf map for each duration.
+                    A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but
+                    is overwritten with the next duration executed.
+      imported custom modules:
+         precip_dialog.py
+            tkSimpleDialog.py
+            ttkcalendar.py
+         process_hourly.py
+            read_config_functions.py
+            precip_geoprocessing.py
+            sql_wjt.py
+            sqlite_wjt.py
+            interpolator.py
+            wget.py
+         
+   ddf_plot_main.py - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence
+                      interval within the county.
+      imported custom modules:
+         ddf_plot_dialog.py
+         ddf_plotting.py
+            file_mgmt.py
+            sqlite_wjt.py
