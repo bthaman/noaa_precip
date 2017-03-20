@@ -24,7 +24,7 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 <b>Analysis Modules</b>
 
-1.  precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. Outputs include csv file for each duration, and optionally a pdf map for each duration. A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but is overwritten with the next duration executed. 
+1.  <b>precip_main.py</b> - Main program, displays window for input of date, rainfall duration, geographic area. Outputs include csv file for each duration, and optionally a pdf map for each duration. A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but is overwritten with the next duration executed. 
 2.  precip_dialog.py - imported into precip_main
 3.  tkSimpleDialog.py - imported into precip_dialog
 4.  ttkcalendar.py - imported into precip_dialog
