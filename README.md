@@ -3,6 +3,7 @@
 Application that downloads NOAA hourly historical rainfall data at HRAP points, spaced 4 km over the entire U.S., and produces recurrence interval maps over specified areas.
 
 Data downloaded from: http://www.srh.noaa.gov/data/ridge2/Precip/qpehourlyshape/
+
 The following page gives you a general idea of the data: https://water.weather.gov/precip/download.php
 
 <b>Prerequisites</b>
@@ -23,14 +24,13 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 <b>Modules</b>
 
-   precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. 
+1. precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. 
                     Outputs include csv file for each duration, and optionally a pdf map for each duration.
                     A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but
                     is overwritten with the next duration executed.
-      imported custom modules:
-         precip_dialog.py
-            tkSimpleDialog.py
-            ttkcalendar.py
+   a. precip_dialog.py
+      i.  tkSimpleDialog.py
+      ii. ttkcalendar.py
          process_hourly.py
             read_config_functions.py
             precip_geoprocessing.py
