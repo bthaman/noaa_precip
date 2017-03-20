@@ -26,7 +26,8 @@ class DDFplotGUI(ttk.LabelFrame):
         self.btn_ok.configure(state='disabled')
 
         cmb_date['values'] = self.dropdown_list
-        cmb_date.current(0)
+        if len(self.dropdown_list) > 0:
+            cmb_date.current(0)
 
         # put space around the widgets
         for child in self.winfo_children():
