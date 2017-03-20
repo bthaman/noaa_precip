@@ -38,7 +38,7 @@ The following page gives you a general idea of the data: https://water.weather.g
          
 <b>DDF Plotting Modules</b>
    
-1. ddf_plot_main.py - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence interval within the county.
+1. <b>ddf_plot_main.py</b> - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence interval within the county.
 2. ddf_plot_dialog.py
 3. ddf_plotting.py
 4. file_mgmt.py
