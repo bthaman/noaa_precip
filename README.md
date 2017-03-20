@@ -22,7 +22,7 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db.
 
-<b>Modules</b>
+<b>Analysis Modules</b>
 
 1. precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. Outputs include csv file for each duration, and optionally a pdf map for each duration. A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but is overwritten with the next duration executed. 
 2.  precip_dialog.py
@@ -36,10 +36,10 @@ The following page gives you a general idea of the data: https://water.weather.g
 10. interpolator.py
 11. wget.py
          
-   ddf_plot_main.py - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence
-                      interval within the county.
-      imported custom modules:
-         ddf_plot_dialog.py
-         ddf_plotting.py
-            file_mgmt.py
-            sqlite_wjt.py
+<b>DDF Plotting Modules</b>
+   
+1. ddf_plot_main.py - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence interval within the county.
+2. ddf_plot_dialog.py
+3. ddf_plotting.py
+4. file_mgmt.py
+5. sqlite_wjt.py
