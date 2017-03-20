@@ -24,20 +24,17 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 <b>Modules</b>
 
-1. precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. 
-                    Outputs include csv file for each duration, and optionally a pdf map for each duration.
-                    A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but
-                    is overwritten with the next duration executed.
-   a. precip_dialog.py
-      i.  tkSimpleDialog.py
-      ii. ttkcalendar.py
-         process_hourly.py
-            read_config_functions.py
-            precip_geoprocessing.py
-            sql_wjt.py
-            sqlite_wjt.py
-            interpolator.py
-            wget.py
+1. precip_main.py - Main program, displays window for input of date, rainfall duration, geographic area. Outputs include csv file for each duration, and optionally a pdf map for each duration. A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but is overwritten with the next duration executed. 
+2.  precip_dialog.py
+3.  tkSimpleDialog.py
+4.  ttkcalendar.py
+5.  process_hourly.py
+6.  read_config_functions.py
+7.  precip_geoprocessing.py
+8.  sql_wjt.py
+9.  sqlite_wjt.py
+10. interpolator.py
+11. wget.py
          
    ddf_plot_main.py - Main program, generates depth-duration-frequency curves for the top ten counties in terms of max recurrence
                       interval within the county.
