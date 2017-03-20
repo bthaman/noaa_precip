@@ -214,7 +214,7 @@ class PrecipProcessor:
             status = pdf.export_pdf(map_area, pdf_name=pdf_name,
                                     legend_title=str(self.precip_date) + ': ' + str(duration_hrs) + ' hr')
             print(status)
-            pdf_file = os.path.join(os.getcwd(), pdf_name + '.pdf')
+            pdf_file = os.path.join(os.getcwd(), 'output', pdf_name + '.pdf')
             if show_maps:
                 os.startfile(pdf_file)
 
@@ -232,7 +232,7 @@ class PrecipProcessor:
         os.chdir(working_shp)
 
         gpt = GPtools()
-        clip_boundary = self.dictSettings['clip_boundary']
+        clip_boundary = os.path.join(self.root, self.dictSettings['clip_boundary'])
 
         for hour in self.hours:
             inFeatures = os.getcwd() + os.sep + hour + '.shp'
