@@ -1,6 +1,6 @@
 """
  bill thaman: 11/11/2016
- last update: 3/17/2017
+ last update: 3/20/2017
  processes hourly rainfall data once the data has been downloaded and unzipped to shapefiles
    - PrecipProcessor class has functions to:
        - clip shapefiles to texas and output to SDE

@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-# ---------------------------------------------------------------------------
-# CreateContours.py
-# Description:
-# ---------------------------------------------------------------------------
-
-# Set the necessary product code
+"""
+ geoprocessing
+ last update: 3/20/2017
+"""
 import Tkinter as tk
 import tkMessageBox
 
