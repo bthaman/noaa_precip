@@ -8,13 +8,12 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 <b>Prerequisites</b>
 
-1. Python 2.7.10 w/ ArcPy installed and licensed. Python needs the following libraries:
+1. Python 2.7.10 w/ ArcPy installed and licensed. Python needs the following libraries that are not in the standard library:
    * pandas
    * numpy
    * wget
    * matplotlib
    * pypyodbc
-   * sqlite3 (this may be in the standard library)
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
