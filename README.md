@@ -17,9 +17,9 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
-3. noaa_precip.config is used for sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, download info.
+3. noaa_precip.config must be populated with current sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, and download info.
 
-4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db.
+4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db, if necessary.
 
 <b>Analysis Modules</b>
 
