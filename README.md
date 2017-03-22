@@ -1,3 +1,5 @@
+
+
 <b>Overview</b>
 
 Application that downloads NOAA hourly historical rainfall data at HRAP points, spaced 4 km over the entire U.S., and produces recurrence interval maps over specified areas.
@@ -8,19 +10,18 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 <b>Prerequisites</b>
 
-1. Python 2.7.10 w/ ArcPy installed and licensed. Python needs the following libraries:
+1. Python 2.7.10 w/ ArcPy installed and licensed. Python needs the following libraries that are not in the standard library:
    * pandas
    * numpy
    * wget
    * matplotlib
    * pypyodbc
-   * sqlite3 (this may be in the standard library)
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
-3. noaa_precip.config is used for sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, download info.
+3. noaa_precip.config must be populated with current sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, and download info.
 
-4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db.
+4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db, if necessary.
 
 <b>Analysis Modules</b>
 
