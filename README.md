@@ -16,6 +16,7 @@ The following page gives you a general idea of the data: https://water.weather.g
    * wget
    * matplotlib
    * pypyodbc
+   * configparser
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
