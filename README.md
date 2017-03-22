@@ -24,6 +24,8 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db, if necessary.
 
+5. Requires subdirectories \output and \qpehourly
+
 <b>Analysis Modules</b>
 
 1.  <b>precip_main.py</b> - Main program, displays window for input of date, rainfall duration, geographic area. Outputs include csv file for each duration, and optionally a pdf map for each duration. A feature class with thiessen polygons, generated from the HRAP points, is updated for each duration, but is overwritten with the next duration executed. 
