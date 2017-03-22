@@ -24,7 +24,7 @@ The following page gives you a general idea of the data: https://water.weather.g
 
 4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db, if necessary.
 
-5. Requires subdirectories \output and \qpehourly
+5. Requires subdirectories \output and \qpehourly to store .csv output and qpe downloads respectively
 
 <b>Analysis Modules</b>
 
