@@ -27,7 +27,7 @@ class App(precip_dialog.PrecipGUI):
         for child in self.winfo_children():
             child.grid_configure(padx=5, pady=5)
 
-    # override the tk window click event
+    # override the tk window click event.
     def okclick(self):
         # tk window's click event: get values from window
         duration_hrs = self.entered_duration.get()
