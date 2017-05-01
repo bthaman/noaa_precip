@@ -16,12 +16,15 @@ The following page gives you a general idea of the data: https://water.weather.g
    * wget
    * matplotlib
    * pypyodbc
+   * configparser
 
 2. SDE geodatabase. I'm using SQLEXPRESS installed locally. I've also used an enterprise SQL Server database on a Fort Worth server, but the performance was terrible.
 
 3. noaa_precip.config must be populated with current sql server settings (connection string, table names for queries/geoprocessing), sqlite table name, and download info.
 
 4. Uses a sqlite database (precipddf.db). Don't need sqlite installed to execute the app, but will to manage the db, if necessary.
+
+5. Requires subdirectories \output and \qpehourly to store .csv output and qpe downloads respectively
 
 <b>Analysis Modules</b>
 
