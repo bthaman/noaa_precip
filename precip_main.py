@@ -7,6 +7,7 @@
 
 import process_hourly
 import precip_dialog
+from send_sms import *
 import Tkinter
 import ttk
 
@@ -43,6 +44,9 @@ class App(precip_dialog.PrecipGUI):
             process_hourly.PrecipProcessor.process_all_durations = True
             for d in self.get_durations():
                 pp.process_points(d, map_area=map_area, export_maps=True, show_maps=False, create_raster=False)
+            if pp.max_return_period >= 100:
+                send_text('\nDate: ' + str(pp.precip_date) + '\n' + 'Max return period: ' +
+                          str(pp.max_return_period) + '\n' + 'County: ' + pp.max_return_period_county)
 
     # override super class event
     def handle_event(self, *args):

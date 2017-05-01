@@ -43,6 +43,8 @@ class PrecipProcessor:
         self.update_table = self.dictSettings['update_table']
         self.hrap_val_table = self.dictSettings['hrap_val_table']
         self.depth_table_prefix = self.dictSettings['depth_table_prefix']
+        self.max_return_period = 0
+        self.max_return_period_county = ''
         self.dataframe = None
         self.dataframe_ddf = None
         self.out_raster = None
@@ -198,6 +200,12 @@ class PrecipProcessor:
         # create new df w/ subset of columns and write df to csv
         dfsubset = df[['hrapx', 'hrapy', 'county', 'max_win_pt', 'return_period']]
         dfsubset.to_csv('output\\' + str_year + str_month + str_day + '_' + str(duration_hrs) + '.csv')
+        # determine max return period, and send text if > 100 yr
+        max_return_period = dfsubset.sort_values('return_period', ascending=False).iloc[0]['return_period']
+        max_return_period_county = dfsubset.sort_values('return_period', ascending=False).iloc[0]['county']
+        if max_return_period >= 100 and max_return_period > self.max_return_period:
+            self.max_return_period = max_return_period
+            self.max_return_period_county = max_return_period_county
 
         if create_raster:
             # create raster
