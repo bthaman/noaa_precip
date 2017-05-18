@@ -140,6 +140,7 @@ class PdfCreator:
         self.mxd_name = None
         self.run_status = None
         self.out_pdf = None
+        self.out_png = None
         self.lst_mxd = ['texas', 'austin', 'bexar', 'dfw', 'harris']
 
     def get_pdf_filename(self):
@@ -175,6 +176,7 @@ class PdfCreator:
 
             map_document = mxd
             self.out_pdf = os.path.join(os.getcwd(), 'output', pdf_name + '.pdf')
+            self.out_png = os.path.join(os.getcwd(), 'output', pdf_name + '.png')
 
             legend = arcpy.mapping.ListLayoutElements(mxd, "LEGEND_ELEMENT")[0]
             legend.title = legend_title
@@ -196,6 +198,7 @@ class PdfCreator:
             map.ExportToPDF(map_document, self.out_pdf, data_frame, 640, 480, resolution, image_quality, colorspace,
                             compress_vectors, image_compression, picture_symbol, convert_markers, embed_fonts,
                             layers_attributes, georef_info)
+            map.ExportToPNG(map_document, self.out_png, data_frame, 640, 480, resolution=resolution, interlaced=True)
             self.run_status = 'OK'
         except Exception as e:
             self.run_status = e
