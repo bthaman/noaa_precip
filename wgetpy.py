@@ -54,20 +54,23 @@ def download(str_year, str_month, str_day, overwrite=False):
         # run wget, tarfile, and command line commands
         try:
             thefile = wget.download(link)
-            print(thefile)
+            # print thefile
         except Exception as e:
             print(e)
+            print 'wget failed'
         try:
             if thefile.endswith("tar.gz"):
                 tar = tarfile.open(thefile, "r")
                 tar.extractall()
                 tar.close()
         except Exception as e:
-            print(e)
+            print(e) + ': ' + thefile
+            continue
         try:
             check_output("del " + gz, shell=True).decode()
         except Exception:
             pass
+            print 'check_output failed'
         try:
             # rename shapefiles
             os.chdir(working_shp)
@@ -78,7 +81,9 @@ def download(str_year, str_month, str_day, overwrite=False):
             os.rename(shp_root + '.shx', hour + '.shx')
             os.chdir(working)
         except Exception as e:
-            return e.message
+            print e.message + 'Rename failed for ' + working_shp+'\\'+shp_root
+            continue
+            # return e.message
 
     os.chdir(root)
     # copy the "all points" shapefile to the working directory. paths with spaces must be surrounded by double quotes
@@ -86,5 +91,9 @@ def download(str_year, str_month, str_day, overwrite=False):
     return "Data downloaded successfully"
 
 if __name__ == "__main__":
-    result = download('2016', '11', '22')
+    # result = download('2016', '11', '22')
+
+    # this date is missing hour 12 and has directories in the tar.gz
+    result = download('2015', '05', '02', overwrite=False)
+    # 20150504 also has issues
     print(result)
