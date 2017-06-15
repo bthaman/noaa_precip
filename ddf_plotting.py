@@ -111,10 +111,10 @@ class DDFplotting:
             rp_col_names = ['rp_' + hr for hr in self.str_hrs]
             df = dfmerge[['county', 'hrapx', 'hrapy'] + depth_col_names + rp_col_names]
             df['max_rp'] = df[rp_col_names].max(axis=1)
-            df_max = df.sort('max_rp', ascending=False).groupby('county', as_index=False).first()
-            df_max = df_max.sort('max_rp', ascending=False).set_index('county')
+            df_max = df.sort_values('max_rp', ascending=False).groupby('county', as_index=False).first()
+            df_max = df_max.sort_values('max_rp', ascending=False).set_index('county')
             # return the top five rows
-            df_top3 = df_max[:][:10]
+            df_top3 = df_max[:][:5]
             return df_top3
         else:
             print('no files')
