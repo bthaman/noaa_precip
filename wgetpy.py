@@ -69,7 +69,6 @@ def download(str_year, str_month, str_day, overwrite=False):
         try:
             check_output("del " + gz, shell=True).decode()
         except Exception:
-            pass
             print 'check_output failed'
         try:
             # rename shapefiles
@@ -81,7 +80,7 @@ def download(str_year, str_month, str_day, overwrite=False):
             os.rename(shp_root + '.shx', hour + '.shx')
             os.chdir(working)
         except Exception as e:
-            print e.message + 'Rename failed for ' + working_shp+'\\'+shp_root
+            print e.message + 'Rename failed for ' + working_shp + '\\' + shp_root
             continue
             # return e.message
 

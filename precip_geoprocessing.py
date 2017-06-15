@@ -134,6 +134,13 @@ class GPtools:
             return self.run_status
         return self.run_status
 
+    def rename_layer(self, layer_num, layer_name):
+        mapDoc = os.path.join(os.getcwd(), 'texas_service.mxd')
+        map = arcpy.mapping.MapDocument(mapDoc)
+        layers = arcpy.mapping.ListLayers(map)
+        layers[layer_num].name = layer_name
+        map.save()
+
 
 class PdfCreator:
     def __init__(self):
@@ -141,7 +148,7 @@ class PdfCreator:
         self.run_status = None
         self.out_pdf = None
         self.out_png = None
-        self.lst_mxd = ['texas', 'austin', 'bexar', 'dfw', 'harris']
+        self.lst_mxd = ['texas', 'austin', 'bexar', 'dfw', 'harris', 'texas_service']
 
     def get_pdf_filename(self):
         return self.out_pdf
